@@ -4,6 +4,7 @@ import {
   getAllTaskService,
   getTaskByIdService,
   updateTaskService,
+  updateTaskStatusService,
 } from "../services/task.service.js";
 import { errorResponse, successResponse } from "../utils/response.js";
 
@@ -65,6 +66,19 @@ export const updateTask = async (req, res, next) => {
     }
 
     return successResponse(res, 200, "Task updated successfully", task);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updateTaskStatus = async (req, res, next) => {
+  try {
+    const { status } = req.body;
+    const { id } = req.params;
+
+    const task = await updateTaskStatusService(id, status);
+
+    return successResponse(res, 200, "Task status updated", task);
   } catch (error) {
     next(error);
   }

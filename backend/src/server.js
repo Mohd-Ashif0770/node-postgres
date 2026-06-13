@@ -48,7 +48,7 @@ app.use("/api/task", taskRoutes)
 app.use(GlobalErrorhandler)
 
 //init Database
-await initDB()
+// await initDB()  //
 
 //server connection
 app.listen(port, () => {

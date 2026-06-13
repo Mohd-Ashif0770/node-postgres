@@ -20,3 +20,7 @@ export const updateTaskSchema = z.object({
   status: TaskStatusEnum.optional(),
   category_id: z.coerce.number().min(1, "Category id is required").optional(),
 });
+
+export const updateTaskStatusSchema = z.object({
+  status: TaskStatusEnum
+})

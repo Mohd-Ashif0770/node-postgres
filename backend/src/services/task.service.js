@@ -62,6 +62,19 @@ export const updateTaskService = async (
   return result.rows[0];
 };
 
+export const updateTaskStatusService = async (id, status) => {
+  const result = await pool.query(
+    `
+    UPDATE tasks
+    SET status = $1
+    WHERE id = $2
+    RETURNING *
+    `, [status, id]
+  )
+
+  return result.rows[0];
+}
+
 export const deleteTaskService = async (id) => {
   const result = await pool.query(
     `
