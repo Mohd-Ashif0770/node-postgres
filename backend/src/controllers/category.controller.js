@@ -8,10 +8,10 @@ export const createCategory = async (req, res, next) => {
   try {
     const { name } = req.body;
     if(!name){
-        errorResponse(res, 400, "name is required");
+      return errorResponse(res, 400, "name is required");
     }
     const category = await createCategoryService(name);
-    successResponse(res, 201, "Category created", category);
+   return successResponse(res, 201, "Category created", category);
   } catch (error) {
     next(error)
   }
@@ -20,7 +20,7 @@ export const createCategory = async (req, res, next) => {
 export const getAllCategory = async (req, res, next) => {
   try {
     const categories = await getAllCategoryService();
-    successResponse(res, 200, "All category fetched", categories);
+    return successResponse(res, 200, "All category fetched", categories);
   } catch (error) {
     next(error);
   }

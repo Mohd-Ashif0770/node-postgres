@@ -1,9 +1,10 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
 import pool from "./config/db.js";
 import GlobalErrorhandler from "./middlewares/errorHandler.js";
-import userRoutes from "./routes/user.routes.js"
+import authRoutes from "./routes/auth.routes.js"
 import categoryRoutes from "./routes/category.routes.js"
 import taskRoutes from "./routes/task.routes.js"
 import initDB from "./data/initDB.js";
@@ -15,7 +16,11 @@ const port = process.env.PORT || 5000;
 
 //middlewares
 app.use(express.json());
-app.use(cors());
+app.use(cookieParser());
+app.use(cors({
+  origin: "http://localhost:5173",
+  credentials:true
+}));
 
 //health route
 app.get("/health", async (req, res) => {
@@ -35,7 +40,7 @@ app.get("/health", async (req, res) => {
 });
 
 //routes
-app.use("/api/user", userRoutes) 
+app.use("/api/auth", authRoutes) 
 app.use("/api/category", categoryRoutes) 
 app.use("/api/task", taskRoutes) 
 
