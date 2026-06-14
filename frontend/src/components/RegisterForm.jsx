@@ -31,7 +31,7 @@ const RegisterForm = () => {
 
       if (response.status === 201) {
         toast.success("Registration completed");
-        navigate("/")
+        navigate("/login")
         reset();
       }
     } catch (error) {

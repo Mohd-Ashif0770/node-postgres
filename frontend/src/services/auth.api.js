@@ -10,4 +10,4 @@ export const userLogout = async () =>
     await api.post("/auth/logout");
 
 export const getProfile = async () => 
-    await api.post("/auth/profile");
+    await api.get("/auth/profile");

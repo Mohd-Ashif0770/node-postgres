@@ -59,7 +59,18 @@ export const updateTaskService = async (
     [title, description, status, category_id, id],
   );
 
-  return result.rows[0];
+  const updatedTask = await pool.query(
+    `
+    SELECT t.*, c.name AS category_name
+    FROM tasks t
+    LEFT JOIN categories c
+    ON t.category_id = c.id
+    WHERE t.id = $1
+    `,
+    [id],
+  );
+
+  return updatedTask.rows[0];
 };
 
 export const updateTaskStatusService = async (id, status) => {
@@ -69,11 +80,12 @@ export const updateTaskStatusService = async (id, status) => {
     SET status = $1
     WHERE id = $2
     RETURNING *
-    `, [status, id]
-  )
+    `,
+    [status, id],
+  );
 
   return result.rows[0];
-}
+};
 
 export const deleteTaskService = async (id) => {
   const result = await pool.query(

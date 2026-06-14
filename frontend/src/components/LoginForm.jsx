@@ -6,12 +6,14 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { userLogin } from "../services/auth.api";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const inputClass =
   "w-full border border-gray-300 py-2 px-3 rounded-md text-sm outline-none focus:ring-1 focus:ring-blue-500";
 const LoginForm = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const {setUser} = useAuth();
   const {
     register,
     handleSubmit,
@@ -27,7 +29,8 @@ const LoginForm = () => {
       const response = await userLogin(data);
 
       if (response.status === 200) {
-        toast.success("user logged in");
+        toast.success("User logged in");
+        setUser(response.data.data)
         reset();
         navigate("/");
       }

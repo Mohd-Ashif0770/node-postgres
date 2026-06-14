@@ -5,8 +5,15 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import { useAuth } from "./context/AuthContext";
 
 const App = () => {
+  const { loading } = useAuth()
+ 
+ if(loading) return(
+  <p className="text-xl text-gray-700 text-center">Loading...</p>
+ )
+
   return (
     <>
       <Navbar />

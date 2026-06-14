@@ -73,8 +73,8 @@ export const updateTask = async (req, res, next) => {
 
 export const updateTaskStatus = async (req, res, next) => {
   try {
-    const { status } = req.body;
     const { id } = req.params;
+    const status = "completed"
 
     const task = await updateTaskStatusService(id, status);
 
